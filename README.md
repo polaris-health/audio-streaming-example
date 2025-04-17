@@ -1,4 +1,4 @@
-# Audio Streaming Sample
+# Audio Streaming Example
 This repo contains a minimal example of how to stream WAV-encoded audio to the Cavell API for transcription.
 Batteries are included:
 - Recovery mechanism for disrupted connections
@@ -9,6 +9,8 @@ Batteries are included:
 ```
 npm install
 ```
+
+Also, please include a valid token in `src/utils/getSocket.jsx` where indicated.
 
 # Run development mode locally (npm)
 ```
