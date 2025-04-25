@@ -103,6 +103,11 @@ export const AudioStreamerContextProvider = ({ children }) => {
         // Error handling logic belongs here.
     }
 
+    function onConnectError(error) {
+        console.log("Connection error: ", error.data);
+        // Error handling logic belongs here.
+    }
+
     async function onDisconnect(onFinish) {
         if (!isAborting.current) {
             if (isClosing.current) {
@@ -176,11 +181,15 @@ export const AudioStreamerContextProvider = ({ children }) => {
         });
 
         // Attach callbacks to the socket.
+        // Custom events.
         socketRef.current.on('error', onError); 
         socketRef.current.on('audio_processed', onMillisecondsProcessed);
         socketRef.current.on('transcript', onTranscript);
         socketRef.current.on('fact', onFact);
         socketRef.current.on('note_generation_requested', onGenerate);
+
+        // Built-in Socket.io events.
+        socketRef.current.on('connect_error', onConnectError);
         socketRef.current.on('disconnect', async () => onDisconnect(onFinish));
         socketRef.current.on('connect', () => {
             if(socketConnectTimeoutRef.current){
