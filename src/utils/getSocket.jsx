@@ -2,9 +2,9 @@ import io from 'socket.io-client';
 
 export function getSocket(){
   const token = 'your token here'; // Replace with your actual token
-  const endpoint = 'wss://staging.corilus.cavell.app';
+  const endpoint = 'wss://{your base domain}'; // Replace with your actual endpoint
   const socket = io(endpoint, {
-    path: "/api/v1/live-transcription/",
+    path: "/api/v2/live-transcription/",
     transports: ["websocket"],
     autoConnect: false,
     auth: {

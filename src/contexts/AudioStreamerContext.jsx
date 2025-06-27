@@ -22,7 +22,7 @@ const AudioStreamerContext = createContext(null);
 export const AudioStreamerContextProvider = ({ children }) => {
     const chunkSize = 96_000; // 96 kB / 1 second of audio.
     const maxTranscriptionTime = 90 * 60; // Seconds.
-    const sampleRate = 48_000; // 48 kHz sample rate.
+    const sampleRate = 16_000; // 16 kHz sample rate.
     const bytesPerSample = 2; // 16-bit audio.
     const socketReconnectTimeout = 15_000; // Milliseconds.
     const socketConnectionPollingInterval = 1_000; // Milliseconds.
@@ -30,7 +30,7 @@ export const AudioStreamerContextProvider = ({ children }) => {
     const language = 'nl'; // Output language: nl, fr, de, en.
     const contactId = 'some id'; // Contact identifier. Used for metric aggregation on contact level.
     const difficultWords = []; // Difficult words.
-    const medicationList = []; // Medication list.
+    const context = []; // Context FHIR resources.
 
     // Must be a whole number.
     const bytesPerMillisecond = sampleRate * bytesPerSample / 1000;
@@ -173,11 +173,11 @@ export const AudioStreamerContextProvider = ({ children }) => {
         socketRef.current.emit('config', { 
             output_language: language,
             difficult_words: difficultWords,
+            context: context,
             channel_count: 1,
             sample_rate: sampleRate,
             bits_per_sample: bytesPerSample*8,
-            contact_id: contactId,
-            medication_list: medicationList,
+            tags: [{key: "contact_id", value: contactId}],
         });
 
         // Attach callbacks to the socket.
