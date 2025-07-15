@@ -20,7 +20,7 @@ return {...state, ...action};
 const AudioStreamerContext = createContext(null);
 
 export const AudioStreamerContextProvider = ({ children }) => {
-    const chunkSize = 96_000; // 96 kB / 1 second of audio.
+    const chunkSize = 32_000; // 32 kB / 1 second of audio.
     const maxTranscriptionTime = 90 * 60; // Seconds.
     const sampleRate = 16_000; // 16 kHz sample rate.
     const bytesPerSample = 2; // 16-bit audio.
